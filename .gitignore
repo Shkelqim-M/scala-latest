@@ -1,0 +1,25 @@
+.bsp
+
+*.class
+*.log
+
+.metals/
+.bloop/
+.ammonite/
+metals.sbt
+
+
+dist/*
+target/
+lib_managed/
+src_managed/
+project/boot/
+project/project
+project/plugins/project/
+.history
+.cache
+.lib/
+
+### Idea
+.idea/
+out/
