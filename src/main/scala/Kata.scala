@@ -18,4 +18,26 @@ object Kata {
     data.map { case (age, handicap) =>
       if (age >= 55 && handicap > 7) "Senior" else "Open"
     }
+
+  def addBinary(a: Int, b: Int): String = (a + b).toBinaryString
+
+  def score(dice: Seq[Int]): Int = {
+    val counts = dice.groupBy(identity).view.mapValues(_.size)
+    counts.foldLeft(0) { case (totalScore, (num, count)) =>
+      num match {
+        case 1 =>
+          val tripletScore = (count / 3) * 1000
+          val singleScore  = (count % 3) * 100
+          totalScore + tripletScore + singleScore
+        case 5 =>
+          val tripletScore = (count / 3) * 500
+          val singleScore  = (count % 3) * 50
+          totalScore + tripletScore + singleScore
+        case _ =>
+          val tripletScore = (count / 3) * num * 100
+          totalScore + tripletScore
+      }
+    }
+  }
+
 }
