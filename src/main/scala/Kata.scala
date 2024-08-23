@@ -1,4 +1,6 @@
 object Kata {
+  def duplicateCount(str: String): Int = str.groupBy(_.toLower).count(_._2.length > 1)
+
   def arrayDiff(a: Seq[Int], b: Seq[Int]): Seq[Int] = a.filterNot(b.contains)
 
   def createPhoneNumber(numbers: Seq[Int]): String = {
@@ -39,5 +41,16 @@ object Kata {
       }
     }
   }
+
+  def twoSum(numbers: List[Int], target: Int): (Int, Int) =
+    numbers.zipWithIndex.combinations(2).collectFirst { case Seq((a, i), (b, j)) if a + b == target => (i, j) }.get
+  /* { // old letCode implementation
+    val withIndex = numbers.zipWithIndex
+    val hashMap   = withIndex.toMap
+    withIndex.collectFirst {
+      case (value, index) if hashMap.get(target - value).exists(_ != index) =>
+        (index, hashMap(target - value))
+    }.get
+  }*/
 
 }
