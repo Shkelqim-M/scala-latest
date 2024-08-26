@@ -1,4 +1,37 @@
 object Kata {
+  def encode(arabic: Int): String = {
+    val romanNumerals = List(
+      1000 -> "M",
+      900  -> "CM",
+      500  -> "D",
+      400  -> "CD",
+      100  -> "C",
+      90   -> "XC",
+      50   -> "L",
+      40   -> "XL",
+      10   -> "X",
+      9    -> "IX",
+      5    -> "V",
+      4    -> "IV",
+      1    -> "I"
+    )
+
+    romanNumerals
+      .foldLeft(("", arabic)) { case ((result, n), (value, symbol)) =>
+        val count = n / value
+        (result + symbol * count, n % value)
+      }
+      ._1
+  }
+
+  def rgb(r: Int, g: Int, b: Int): String =
+    Seq(r, g, b).map {
+      case x if x <= 0   => "00"
+      case x if x >= 255 => "FF"
+      case x if x >= 16  => x.toHexString.toUpperCase
+      case x             => "0" + x.toHexString.toUpperCase
+    }.mkString
+
   def duplicateCount(str: String): Int = str.groupBy(_.toLower).count(_._2.length > 1)
 
   def arrayDiff(a: Seq[Int], b: Seq[Int]): Seq[Int] = a.filterNot(b.contains)
