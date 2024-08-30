@@ -1,28 +1,18 @@
 object Kata {
-  def encode(arabic: Int): String = {
-    val romanNumerals = List(
-      1000 -> "M",
-      900  -> "CM",
-      500  -> "D",
-      400  -> "CD",
-      100  -> "C",
-      90   -> "XC",
-      50   -> "L",
-      40   -> "XL",
-      10   -> "X",
-      9    -> "IX",
-      5    -> "V",
-      4    -> "IV",
-      1    -> "I"
-    )
 
-    romanNumerals
-      .foldLeft(("", arabic)) { case ((result, n), (value, symbol)) =>
-        val count = n / value
-        (result + symbol * count, n % value)
+  def lastDigit(n1: BigInt, n2: BigInt): BigInt =
+    if (n2 == 0) 1 else if (n2 % 2 == 0) lastDigit(n1 * n1 % 10, n2 / 2) else n1 * lastDigit(n1 % 10, n2 - 1) % 10
+
+  def tribonacci[T: Numeric](signature: List[T], n: Int): List[T] =
+    if (n == 0) List.empty[T]
+    else {
+      var response = signature.take(n)
+      for (i <- 1 to n - signature.length) {
+        val temp = response.takeRight(3).sum
+        response = response :+ temp
       }
-      ._1
-  }
+      response
+    }
 
   def rgb(r: Int, g: Int, b: Int): String =
     Seq(r, g, b).map {
@@ -85,5 +75,4 @@ object Kata {
         (index, hashMap(target - value))
     }.get
   }*/
-
 }

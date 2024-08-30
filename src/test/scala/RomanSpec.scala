@@ -1,28 +1,23 @@
-import Kata.encode
 import org.scalatest.*
-import flatspec.*
+import org.scalatest.flatspec.*
 
 class RomanSpec extends AnyFlatSpec {
-  it should "pass basic tests" in {
-    val testCases = List( // arabic, expected
-      (1, "I"),
-      (3, "III"),
-      (4, "IV"),
-      (6, "VI"),
-      (14, "XIV"),
-      (21, "XXI"),
-      (89, "LXXXIX"),
-      (91, "XCI"),
-      (984, "CMLXXXIV"),
-      (1000, "M"),
-      (1666, "MDCLXVI"),
-      (1889, "MDCCCLXXXIX"),
-      (1989, "MCMLXXXIX"),
-      (2008, "MMVIII")
-    )
+  val myRoman: RomanNumerals = RomanNumerals()
 
-    testCases.foreach { case (arabic, expected) =>
-      assertResult(expected, "\nInput:\n  arabic = $arabic") { encode(arabic) }
-    }
+  "Arabic" should "be converted to Roman" in {
+    assert(myRoman.toRoman(1) === "I", "1 converts to I")
+    assert(myRoman.toRoman(2) === "II", "2 converts to II")
+    assert(myRoman.toRoman(1666) === "MDCLXVI", "1666 converts to MDCLXVI")
+    assert(myRoman.toRoman(1664) === "MDCLXIV", "1664 converts to MDCLXIV")
+    assert(myRoman.toRoman(1995) === "MCMXCV", "1995 converts to MCMXCV")
+    assert(myRoman.toRoman(1005) === "MV", "1005 converts to MV")
+  }
+  "Roman" should "be converted to Arabic" in {
+    assert(myRoman.fromRoman("I") === 1, "I converts to 1")
+    assert(myRoman.fromRoman("II") === 2, "II converts to 2")
+    assert(myRoman.fromRoman("MDCLXVI") === 1666, "MDCLXVI converts to 1666")
+    assert(myRoman.fromRoman("MDCLXIV") === 1664, "MDCLXIV converts to 1664")
+    assert(myRoman.fromRoman("MCMXCV") === 1995, "MCMXCV converts to 1995")
+    assert(myRoman.fromRoman("MV") === 1005, "MV converts to 1005")
   }
 }
